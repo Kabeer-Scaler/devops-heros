@@ -22,7 +22,7 @@ Displays the routing table and shows the routes used by the system.
 
 Displays neighbour objects and the ARP table for IPv4.
 
-### 5. ss -tulpn
+### 5. ss 
 
 Displays network sockets, including listening TCP/UDP ports and the processes using them.
 
