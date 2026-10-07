@@ -10,6 +10,12 @@ resource "aws_vpc" "main" {
   }
 }
 
+data "aws_caller_identity" "current" {}
+
+data "aws_ssm_parameter" "al2023_ami" {
+  name = "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64"
+}
+
 resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "10.20.1.0/24"
@@ -87,4 +93,63 @@ resource "aws_security_group" "web" {
     Session   = "19"
     ManagedBy = "Terraform"
   }
+}
+
+resource "aws_instance" "web" {
+  ami                         = data.aws_ssm_parameter.al2023_ami.value
+  instance_type               = var.instance_type
+  subnet_id                   = aws_subnet.public.id
+  vpc_security_group_ids      = [aws_security_group.web.id]
+  associate_public_ip_address = true
+
+  user_data = <<-EOT
+    #!/bin/bash
+    dnf install -y nginx
+    echo '<h1>Session 19 Terraform Web Server</h1>' > /usr/share/nginx/html/index.html
+    systemctl enable --now nginx
+  EOT
+
+  tags = {
+    Name      = "session19-mini-web"
+    Session   = "19"
+    ManagedBy = "Terraform"
+  }
+}
+
+resource "aws_s3_bucket" "artifacts" {
+  bucket        = "session19-${data.aws_caller_identity.current.account_id}-${var.aws_region}"
+  force_destroy = true
+
+  tags = {
+    Name      = "session19-artifacts"
+    Session   = "19"
+    ManagedBy = "Terraform"
+  }
+}
+
+resource "aws_s3_bucket_versioning" "artifacts" {
+  bucket = aws_s3_bucket.artifacts.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "artifacts" {
+  bucket = aws_s3_bucket.artifacts.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "artifacts" {
+  bucket = aws_s3_bucket.artifacts.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }

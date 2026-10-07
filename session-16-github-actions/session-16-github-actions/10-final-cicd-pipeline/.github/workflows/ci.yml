@@ -50,6 +50,15 @@ jobs:
         with:
           name: calculator-build
           path: build/
+      - name: Build container image
+        run: docker build -t session16-calculator:${{ github.sha }} .
+      - name: Export container artifact
+        run: docker save session16-calculator:${{ github.sha }} -o build/session16-calculator.tar
+      - name: Upload container artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: calculator-image
+          path: build/session16-calculator.tar
   security-check:
     name: Security Check
     needs: test
@@ -70,3 +79,26 @@ jobs:
           else
             echo "No common sensitive files found."
           fi
+  deploy-demo:
+    name: CD Smoke Test
+    needs:
+      - build
+      - security-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: calculator-build
+          path: build
+      - name: Download container artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: calculator-image
+          path: build
+      - name: Load delivered image
+        run: docker load -i build/session16-calculator.tar
+      - name: Run delivered image
+        run: docker run --name session16-demo session16-calculator:${{ github.sha }}
+      - name: Verify deployment result
+        run: docker inspect session16-demo --format '{{.State.Status}} {{.State.ExitCode}}'

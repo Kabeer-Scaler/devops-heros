@@ -1,2 +1,7 @@
 ./node_modules/
 .zip
+.tools/
+tmp/
+**/.terraform/
+**/__pycache__/
+**/.pytest_cache/

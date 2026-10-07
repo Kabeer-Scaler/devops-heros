@@ -1,19 +1,5 @@
 # Session 11: Kubernetes Services, DNS & Workload Identity
 
-**Author:** [Your Name]  
-**Course:** SST DevOps & Cloud [SWE]  
-**Session:** 11  
-**Repository Directory:** `session-11-kubernetes-services`
-
-> **Submission note:** The commands and task structure below are based on the supplied **DevOps Assignment Season 2** Markdown. Obvious URL-formatting artifacts caused by Markdown rendering have been normalized so the shell commands are copyable. Terminal output is machine-specific, so every task contains a placeholder that must be replaced with your real output before submission.
-
-
-```bash
-mkdir -p screenshots
-```
-
-This session covers Kubernetes Service types, DNS/service discovery, workload identity and service-selection architecture.
-
 ---
 ## Task 1: Kubernetes Port Architecture & Clarification Drill
 
@@ -46,20 +32,6 @@ This session covers Kubernetes Service types, DNS/service discovery, workload id
 
 The packet-flow model for the assignment is `nodePort -> Service port -> targetPort -> application/container port`. `containerPort` documents the container-side application port; `targetPort` is where the Service forwards; `port` is the Service port; `nodePort` exposes a high port on nodes.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 1 HERE
-```
-
-### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task1.png`.
-
-![Task 1](./screenshots/task1.png)
-
 ---
 
 ## Task 2: Type 1 Service — ClusterIP (Default Internal Networking)
@@ -91,17 +63,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 A ClusterIP Service is reachable from inside the cluster. Successful DNS/service-name and FQDN curls prove both CoreDNS resolution and Service-to-Pod endpoint routing.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 2 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task2.png`.
 
 ![Task 2](./screenshots/task2.png)
 
@@ -133,17 +95,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 A NodePort Service exposes a high node port (the assignment uses `30080`). If direct Minikube-node routing is unavailable with the Docker driver, `minikube service ... --url` provides a host-reachable forwarding URL.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 3 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task3.png`.
 
 ![Task 3](./screenshots/task3.png)
 
@@ -178,17 +130,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 A `LoadBalancer` Service initially lacks a cloud-assigned external address in local Minikube. `minikube tunnel` simulates the external-load-balancer path so the Service receives an external IP that can be tested directly.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 4 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task4.png`.
 
 ![Task 4](./screenshots/task4.png)
 
@@ -220,17 +162,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 An `ExternalName` Service has no Pod selector or normal endpoint set; DNS returns a CNAME-style alias to the configured external hostname. `nslookup` inside the client Pod is the key proof.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 5 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task5.png`.
 
 ![Task 5](./screenshots/task5.png)
 
@@ -267,17 +199,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 With `clusterIP: None`, DNS can return Pod addresses rather than one Service VIP. Pairing the headless Service with a StatefulSet also enables stable ordinal hostnames such as `web-stateful-0.<service>`.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 6 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task6.png`.
 
 ![Task 6](./screenshots/task6.png)
 
@@ -326,21 +248,6 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 Without a selector, Kubernetes cannot automatically discover backend Pods. A manually created Endpoints object with the same Service name supplies the destination address explicitly, demonstrating routing to legacy/external infrastructure.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 7 HERE
-```
-
-### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task7.png`.
-
-![Task 7](./screenshots/task7.png)
-
----
 
 ## Task 8: FQDN & CoreDNS Deep Dive Architecture Analysis
 
@@ -368,17 +275,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 Kubernetes service discovery expands short names through search suffixes such as `<namespace>.svc.cluster.local`. Inspecting `/etc/resolv.conf` exposes the DNS server, search list and `ndots:5`; external names with too few dots may be tried against search suffixes first, creating extra DNS lookups.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 8 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task8.png`.
 
 ![Task 8](./screenshots/task8.png)
 
@@ -427,17 +324,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 Deployment Pod identity is disposable: deleting one yields a replacement with a new generated suffix. StatefulSet identity is ordinal: deleting `web-stateful-0` causes the controller to recreate `web-stateful-0`.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 9 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task9.png`.
 
 ![Task 9](./screenshots/task9.png)
 
@@ -475,20 +362,6 @@ Combine the required evidence for this task into one screenshot and save it as `
 ### Solution / Observation
 
 The supplied matrix is the required architectural comparison: Deployments favor interchangeable stateless replicas, StatefulSets favor stable ordered identities/storage, and DaemonSets place node-level agents across eligible nodes.
-
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 10 HERE
-```
-
-### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task10.png`.
-
-![Task 10](./screenshots/task10.png)
 
 ---
 
@@ -538,22 +411,6 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 The decision tree is the submission solution in the assignment: internal services normally use ClusterIP, direct stateful discovery can use headless Services, external aliases use ExternalName, and HTTP/HTTPS production exposure is consolidated behind an Ingress/load-balancer entry point rather than one load balancer per microservice.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 11 HERE
-```
-
-### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task11.png`.
-
-![Task 11](./screenshots/task11.png)
-
----
-
 ## Task 12: Minikube Docker-Driver Port Binding & Tunnel Gotcha Analysis
 
 - **Short Description:** Analyze and document why running `curl http://<Node-IP>:<NodePort>` fails on macOS and Windows when using Minikube with the Docker driver. Execute and verify the two standard operational solutions: the temporary network forwarder (`minikube service <svc> --url`) and the continuous Layer 3 routing daemon (`minikube tunnel`).
@@ -593,36 +450,3 @@ Combine the required evidence for this task into one screenshot and save it as `
 ### Solution / Observation
 
 The assignment attributes direct NodeIP:NodePort failures on macOS/Windows Docker-driver setups to Minikube's isolated Docker network. The demonstrated workarounds are `minikube service <svc> --url` and `minikube tunnel`.
-
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 12 HERE
-```
-
-### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task12.png`.
-
-![Task 12](./screenshots/task12.png)
-
----
-
-## Final Submission Checklist
-
-- [ ] `screenshots/task1.png` exists and contains the required evidence for Task 1.
-- [ ] `screenshots/task2.png` exists and contains the required evidence for Task 2.
-- [ ] `screenshots/task3.png` exists and contains the required evidence for Task 3.
-- [ ] `screenshots/task4.png` exists and contains the required evidence for Task 4.
-- [ ] `screenshots/task5.png` exists and contains the required evidence for Task 5.
-- [ ] `screenshots/task6.png` exists and contains the required evidence for Task 6.
-- [ ] `screenshots/task7.png` exists and contains the required evidence for Task 7.
-- [ ] `screenshots/task8.png` exists and contains the required evidence for Task 8.
-- [ ] `screenshots/task9.png` exists and contains the required evidence for Task 9.
-- [ ] `screenshots/task10.png` exists and contains the required evidence for Task 10.
-- [ ] `screenshots/task11.png` exists and contains the required evidence for Task 11.
-- [ ] `screenshots/task12.png` exists and contains the required evidence for Task 12.
-- [ ] Every `PASTE YOUR ACTUAL TERMINAL OUTPUT` placeholder has been replaced.
-- [ ] The README and referenced manifests are committed to GitHub.

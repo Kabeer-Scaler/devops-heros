@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 # --- In-memory storage for demo ---
 _request_count = 0
-_start_time = datetime.datetime.utcnow()
+_start_time = datetime.datetime.now(datetime.UTC)
 
 
 def _increment_requests():
@@ -35,18 +35,18 @@ def home():
 @app.route("/health")
 def health():
     _increment_requests()
-    uptime_seconds = (datetime.datetime.utcnow() - _start_time).total_seconds()
+    uptime_seconds = (datetime.datetime.now(datetime.UTC) - _start_time).total_seconds()
     return jsonify({
         "status": "healthy",
         "uptime_seconds": round(uptime_seconds, 2),
-        "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+        "timestamp": datetime.datetime.now(datetime.UTC).isoformat(),
     })
 
 
 @app.route("/api/status")
 def status():
     _increment_requests()
-    uptime = datetime.datetime.utcnow() - _start_time
+    uptime = datetime.datetime.now(datetime.UTC) - _start_time
     hours, remainder = divmod(int(uptime.total_seconds()), 3600)
     minutes, seconds = divmod(remainder, 60)
     return jsonify({
@@ -57,7 +57,7 @@ def status():
         "platform": platform.system(),
         "uptime": f"{hours:02d}h {minutes:02d}m {seconds:02d}s",
         "total_requests": _request_count,
-        "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+        "timestamp": datetime.datetime.now(datetime.UTC).isoformat(),
     })
 
 
@@ -78,7 +78,7 @@ def greet(name):
     return jsonify({
         "message": random.choice(greetings),
         "name": name,
-        "timestamp": datetime.datetime.utcnow().isoformat() + "Z",
+        "timestamp": datetime.datetime.now(datetime.UTC).isoformat(),
     })
 
 

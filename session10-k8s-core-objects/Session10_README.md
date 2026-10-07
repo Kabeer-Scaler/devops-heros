@@ -1,19 +1,5 @@
 # Session 10: Kubernetes Core Objects, Lifecycle & Deployment Strategies
 
-**Author:** [Your Name]  
-**Course:** SST DevOps & Cloud [SWE]  
-**Session:** 10  
-**Repository Directory:** `session10-k8s-core-objects`
-
-> **Submission note:** The commands and task structure below are based on the supplied **DevOps Assignment Season 2** Markdown. Obvious URL-formatting artifacts caused by Markdown rendering have been normalized so the shell commands are copyable. Terminal output is machine-specific, so every task contains a placeholder that must be replaced with your real output before submission.
-
-
-```bash
-mkdir -p screenshots
-```
-
-The assignment notes that some Session 10 material was continued during later lectures. The task numbering below follows the Session 10 section of the supplied homework file.
-
 ---
 ## Task 1: Cluster Health Verification & Baseline Environment Checks
 
@@ -45,14 +31,6 @@ The assignment notes that some Session 10 material was continued during later le
 ### Solution / Observation
 
 The cluster is ready for lab work when the control plane is reachable, CoreDNS is reported by `kubectl cluster-info`, and every node required for the lab shows `Ready`. If a node is `NotReady`, fix the cluster before continuing.
-
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 1 HERE
-```
 
 ### Screenshot
 
@@ -90,17 +68,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 After applying `pod.yml`, the Nginx Pod should become `1/1 Running`. `-o wide` exposes its Pod IP and assigned node, while `kubectl logs` reads container stdout/stderr. Deleting the manifest removes the standalone Pod.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 2 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task2.png`.
 
 ![Task 2](./screenshots/task2.png)
 
@@ -130,17 +98,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 The Pod object can be accepted by the API server even though the image cannot be started. The kubelet/container runtime later fails to pull the nonexistent image, first exposing `ErrImagePull` and then retrying with `ImagePullBackOff`.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 3 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task3.png`.
 
 ![Task 3](./screenshots/task3.png)
 
@@ -173,14 +131,6 @@ Combine the required evidence for this task into one screenshot and save it as `
 ### Solution / Observation
 
 A short-lived BusyBox Pod with `restartPolicy: Never` moves through creation/running and then terminates successfully. In `kubectl get pods`, a successful finished workload appears as `Completed`; the corresponding Pod phase is `Succeeded`.
-
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 4 HERE
-```
 
 ### Screenshot
 
@@ -246,17 +196,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 This lab demonstrates that Kubernetes Pod health is not a single binary state: scheduling pressure, successful/failed termination, repeated crashes, image-pull failures, readiness, liveness, startup protection, init sequencing, sidecars and graceful SIGTERM handling are distinct lifecycle behaviors.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 5 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task5.png`.
 
 ![Task 5](./screenshots/task5.png)
 
@@ -300,17 +240,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 A ReplicaSet restores the declared replica count after manual Pod deletion, demonstrating reconciliation/self-healing. A StatefulSet preserves ordered identities such as `mysql-0`, `mysql-1`, etc., and its persistent-storage behavior should be verified with the relevant PVCs when present in the manifest.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 6 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task6.png`.
 
 ![Task 6](./screenshots/task6.png)
 
@@ -337,17 +267,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 A DaemonSet targets eligible nodes rather than an arbitrary replica count. The expected observation is one DaemonSet Pod per eligible node, visible by comparing `kubectl get ds` with `kubectl get pods -o wide`.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 7 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task7.png`.
 
 ![Task 7](./screenshots/task7.png)
 
@@ -384,21 +304,8 @@ Combine the required evidence for this task into one screenshot and save it as `
     kubectl delete -f service.yaml -f deployment-v1.yaml
     ```
 
-### Solution / Observation
-
-The v2 manifest triggers a controlled rolling replacement. With `maxSurge: 1` and `maxUnavailable: 0`, Kubernetes can create one extra Pod while keeping the full desired availability. `rollout undo` returns the Deployment to the preceding revision.
-
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 8 HERE
-```
 
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task8.png`.
 
 ![Task 8](./screenshots/task8.png)
 
@@ -441,17 +348,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 In the broken-image drill, the rollout stalls because newly created Pods cannot pull their image; rollback restores the previous healthy revision. In the selector drill, the Pod-template labels must satisfy the Deployment selector or the API server rejects the manifest.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 9 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task9.png`.
 
 ![Task 9](./screenshots/task9.png)
 
@@ -486,22 +383,6 @@ Combine the required evidence for this task into one screenshot and save it as `
 ### Solution / Observation
 
 The conceptual write-up below is the solution: Service ports describe different points in the traffic path, labels are metadata while selectors match that metadata, deployment strategies trade capacity/risk/downtime differently, and requests/limits have different scheduling/runtime roles.
-
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 10 HERE
-```
-
-### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task10.png`.
-
-![Task 10](./screenshots/task10.png)
-
----
 
 ## Task 11: Blue-Green Deployment Execution & Instant Selector Cutover
 
@@ -563,17 +444,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 Blue and Green run simultaneously, but the Service selector points to only one slot at a time. Applying the Green Service definition moves all selected endpoints to Green; re-applying the Blue selector performs the immediate rollback.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 11 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task11.png`.
 
 ![Task 11](./screenshots/task11.png)
 
@@ -642,17 +513,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 Both stable and canary Pods share the same Service selector, so endpoint count approximates traffic share. A 9:1 Pod ratio approximates 90/10 distribution; scaling the two Deployments changes the ratio, and scaling canary to zero aborts the canary release.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 12 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task12.png`.
 
 ![Task 12](./screenshots/task12.png)
 
@@ -712,36 +573,8 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 `Recreate` deliberately terminates the old replica set before bringing up the new one. The continuous request loop should therefore capture a temporary outage between v1 and v2, unlike a zero-downtime rolling update.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 13 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task13.png`.
 
 ![Task 13](./screenshots/task13.png)
 
 ---
-
-## Final Submission Checklist
-
-- [ ] `screenshots/task1.png` exists and contains the required evidence for Task 1.
-- [ ] `screenshots/task2.png` exists and contains the required evidence for Task 2.
-- [ ] `screenshots/task3.png` exists and contains the required evidence for Task 3.
-- [ ] `screenshots/task4.png` exists and contains the required evidence for Task 4.
-- [ ] `screenshots/task5.png` exists and contains the required evidence for Task 5.
-- [ ] `screenshots/task6.png` exists and contains the required evidence for Task 6.
-- [ ] `screenshots/task7.png` exists and contains the required evidence for Task 7.
-- [ ] `screenshots/task8.png` exists and contains the required evidence for Task 8.
-- [ ] `screenshots/task9.png` exists and contains the required evidence for Task 9.
-- [ ] `screenshots/task10.png` exists and contains the required evidence for Task 10.
-- [ ] `screenshots/task11.png` exists and contains the required evidence for Task 11.
-- [ ] `screenshots/task12.png` exists and contains the required evidence for Task 12.
-- [ ] `screenshots/task13.png` exists and contains the required evidence for Task 13.
-- [ ] Every `PASTE YOUR ACTUAL TERMINAL OUTPUT` placeholder has been replaced.
-- [ ] The README and referenced manifests are committed to GitHub.

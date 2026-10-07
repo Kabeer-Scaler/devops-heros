@@ -1,21 +1,5 @@
 # Session 9: Kubernetes Fundamentals & Cluster Architecture
 
-**Author:** [Your Name]  
-**Course:** SST DevOps & Cloud [SWE]  
-**Session:** 09 - Kubernetes Fundamentals  
-**Repository:** `devops-heros/session9-k8s`
-
-> **Submission note:** The commands and task structure below are based on the supplied **DevOps Assignment Season 2** Markdown. Obvious URL-formatting artifacts caused by Markdown rendering have been normalized so the shell commands are copyable. Terminal output is machine-specific, so every task contains a placeholder that must be replaced with your real output before submission.
-
-
-Create the screenshot folder once before starting:
-
-```bash
-mkdir -p screenshots
-```
-
----
-
 ## Task 1: Minikube Installation & Environment Setup
 
 ### Description
@@ -28,18 +12,7 @@ minikube version
 kubectl version --client
 ```
 
-### Solution / Observation
-A successful setup prints a Minikube version and a Kubernetes client version without `command not found` or executable-path errors. This establishes that the local CLI prerequisites for the remaining Kubernetes labs are available.
-
-### Actual Terminal Output
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 1 HERE
-```
-
 ### Screenshot
-
-Save the terminal evidence as `screenshots/task1.png`.
 
 ![Task 1](./screenshots/task1.png)
 
@@ -58,20 +31,11 @@ minikube start
 
 # Verify cluster components and node readiness
 minikube status
-kubectl get nodes -o wide
+kubectl get nodes 
 
 # Stop cluster cleanly
 minikube stop
 minikube status
-```
-
-### Solution / Observation
-While the cluster is active, `minikube status` should report the host, kubelet and API server as running, and `kubectl get nodes -o wide` should show the Minikube node in `Ready` state. After `minikube stop`, the status should show the cluster components stopped while the kubeconfig remains configured.
-
-### Actual Terminal Output
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 2 HERE
 ```
 
 ### Screenshot
@@ -142,38 +106,4 @@ Document the Control Plane (Master) and Worker Node components, what each compon
 5. The worker-node kubelet observes assigned Pod specifications and asks the container runtime to create the containers.
 6. `kube-proxy` maintains Service networking rules so traffic can reach the appropriate Pods.
 
-### Commands / Reference Check
 
-```bash
-kubectl cluster-info
-kubectl get nodes -o wide
-```
-
-### Actual Terminal Output
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 3 HERE
-```
-
-### Screenshot
-
-Save your architecture/documentation evidence or the supporting cluster-information terminal view as `screenshots/task3.png`.
-
-![Task 3](./screenshots/task3.png)
-
----
-
-## Submission Checklist
-
-- [ ] `README.md` is inside `session9-k8s/`.
-- [ ] `screenshots/task1.png` exists.
-- [ ] `screenshots/task2.png` exists.
-- [ ] `screenshots/task3.png` exists.
-- [ ] Every terminal-output placeholder has been replaced with real local output.
-- [ ] Changes have been committed and pushed to GitHub.
-
-```bash
-git add session9-k8s/
-git commit -m "Submit Session 9 Kubernetes fundamentals and Minikube setup"
-git push origin main
-```
