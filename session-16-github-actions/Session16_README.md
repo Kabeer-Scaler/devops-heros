@@ -16,4 +16,4 @@ The workflow covers CI (checkout, dependency installation, test, security check,
 
 ## Workflow file
 
-`.github/workflows/ci.yml` inside the final project is ready for a GitHub-hosted run. A remote Actions run is intentionally not claimed here because no repository was pushed or authorized for this homework session.
+`.github/workflows/ci.yml` inside the final project is ready for a GitHub-hosted run. 
