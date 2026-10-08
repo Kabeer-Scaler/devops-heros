@@ -1,12 +1,5 @@
 # Session 12: ConfigMaps, Secrets & Ingress
 
-**Author:** [Your Name]  
-**Course:** SST DevOps & Cloud [SWE]  
-**Session:** 12  
-**Repository Directory:** `session-12-ingress-configmaps-secrets`
-
-> **Submission note:** The commands and task structure below are based on the supplied **DevOps Assignment Season 2** Markdown. Obvious URL-formatting artifacts caused by Markdown rendering have been normalized so the shell commands are copyable. Terminal output is machine-specific, so every task contains a placeholder that must be replaced with your real output before submission.
-
 
 ```bash
 mkdir -p screenshots
@@ -40,17 +33,7 @@ cd session-12-ingress-configmaps-secrets
 
 The ConfigMap externalizes non-sensitive runtime values from the container image. `describe` should show the configured keys and JSONPath should return the selected value, such as `production` for `ENVIRONMENT`.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 1 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task1.png`.
 
 ![Task 1](./screenshots/task1.png)
 
@@ -89,22 +72,6 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 Environment variables sourced from a ConfigMap are fixed for the lifetime of the running container. Patching the ConfigMap alone does not rewrite those variables; restarting the Deployment creates new Pods that read the updated ConfigMap values.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 2 HERE
-```
-
-### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task2.png`.
-
-![Task 2](./screenshots/task2.png)
-
----
-
 ## Task 3: Sensitive Data Isolation via Kubernetes Secrets & Base64 Mechanics
 
 - **Short Description:** Implement credential isolation using an `Opaque` Kubernetes `Secret`, illustrating that Base64 is merely an encoding scheme (not encryption) that can be decoded on the CLI.
@@ -127,17 +94,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 The Secret separates sensitive credentials from ordinary configuration, but Base64 itself is not encryption. The JSONPath-plus-`base64 --decode` commands intentionally demonstrate that a user with read access can recover the plaintext.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 3 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task3.png`.
 
 ![Task 3](./screenshots/task3.png)
 
@@ -170,20 +127,6 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 Plain `echo` appends a newline byte (`0x0a`), changing the encoded credential. `echo -n` emits the exact password bytes, avoiding a hidden character that can make database/application authentication fail.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 4 HERE
-```
-
-### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task4.png`.
-
-![Task 4](./screenshots/task4.png)
-
 ---
 
 ## Task 5: Enterprise Secret Management & Pipeline Integration Analysis
@@ -204,20 +147,6 @@ Combine the required evidence for this task into one screenshot and save it as `
 ### Solution / Observation
 
 The write-up should explain why Git-hosted Base64 Secret YAML is a security anti-pattern and describe an external secret store/operator or CI/CD-injection flow so credentials are retrieved at deployment/runtime instead of hardcoded in source control.
-
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 5 HERE
-```
-
-### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task5.png`.
-
-![Task 5](./screenshots/task5.png)
 
 ---
 
@@ -244,17 +173,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 The backend demonstrates two injection paths at the same time: bulk non-sensitive configuration through `envFrom.configMapRef` and individual sensitive values through `secretKeyRef`. The `env` check is the runtime proof.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 6 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task6.png`.
 
 ![Task 6](./screenshots/task6.png)
 
@@ -278,17 +197,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 An Ingress resource is declarative routing configuration; an Ingress Controller is the active data/control-plane implementation that watches those resources and configures a proxy such as NGINX to handle traffic.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 7 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task7.png`.
 
 ![Task 7](./screenshots/task7.png)
 
@@ -317,17 +226,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 The task is complete when the Minikube ingress addon has created the `ingress-nginx` controller resources and the controller Pod reaches `Running` and `Ready` state.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 8 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task8.png`.
 
 ![Task 8](./screenshots/task8.png)
 
@@ -359,20 +258,6 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 The local hosts-file entry makes `yatri.local` resolve to the Minikube address without public DNS. The screenshot should show the same Minikube IP in both the `minikube ip` result and the hosts-file mapping.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 9 HERE
-```
-
-### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task9.png`.
-
-![Task 9](./screenshots/task9.png)
-
 ---
 
 ## Task 10: Layer 7 Path-Based Routing Implementation
@@ -403,17 +288,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 The Ingress acts as a Layer-7 router under one hostname: `/` is sent to the frontend Service, while `/api/...` is sent to the backend Service according to the supplied ingress rules and rewrite behavior.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 10 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task10.png`.
 
 ![Task 10](./screenshots/task10.png)
 
@@ -441,20 +316,6 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 Host-based routing uses the HTTP Host header so two names can share one entry IP but select different backends. Successful curls for `portal.campus.local` and `api.campus.local` demonstrate the separation.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 11 HERE
-```
-
-### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task11.png`.
-
-![Task 11](./screenshots/task11.png)
-
 ---
 
 ## Task 12: Hybrid Ingress Routing Architecture
@@ -476,17 +337,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 The hybrid resource combines host matching and path matching. `kubectl describe ingress` should show multiple host rules and the backend Service chosen for each path.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 12 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task12.png`.
 
 ![Task 12](./screenshots/task12.png)
 
@@ -530,17 +381,7 @@ Combine the required evidence for this task into one screenshot and save it as `
 
 The generated certificate/private key are stored in the TLS Secret and referenced by the Ingress `tls` block. A successful `curl -k --resolve ... https://...` handshake and HTTP response demonstrate TLS termination at the Ingress.
 
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 13 HERE
-```
-
 ### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task13.png`.
 
 ![Task 13](./screenshots/task13.png)
 
@@ -578,38 +419,3 @@ Combine the required evidence for this task into one screenshot and save it as `
 ### Solution / Observation
 
 The automation task is complete when `run-demo.sh` creates the multi-tier resources successfully, the audit command shows the running stack, and `cleanup.sh` removes the lab resources. The assignment text refers to a multi-document separator as `--`; standard YAML multi-document files use `---`, so verify the actual supplied manifests when documenting this point.
-
-### Actual Terminal Output
-
-Replace the placeholder below with the output from **your own machine**. Do not submit the sample/expected output as if it were your execution.
-
-```text
-PASTE YOUR ACTUAL TERMINAL OUTPUT FOR TASK 14 HERE
-```
-
-### Screenshot
-
-Combine the required evidence for this task into one screenshot and save it as `screenshots/task14.png`.
-
-![Task 14](./screenshots/task14.png)
-
----
-
-## Final Submission Checklist
-
-- [ ] `screenshots/task1.png` exists and contains the required evidence for Task 1.
-- [ ] `screenshots/task2.png` exists and contains the required evidence for Task 2.
-- [ ] `screenshots/task3.png` exists and contains the required evidence for Task 3.
-- [ ] `screenshots/task4.png` exists and contains the required evidence for Task 4.
-- [ ] `screenshots/task5.png` exists and contains the required evidence for Task 5.
-- [ ] `screenshots/task6.png` exists and contains the required evidence for Task 6.
-- [ ] `screenshots/task7.png` exists and contains the required evidence for Task 7.
-- [ ] `screenshots/task8.png` exists and contains the required evidence for Task 8.
-- [ ] `screenshots/task9.png` exists and contains the required evidence for Task 9.
-- [ ] `screenshots/task10.png` exists and contains the required evidence for Task 10.
-- [ ] `screenshots/task11.png` exists and contains the required evidence for Task 11.
-- [ ] `screenshots/task12.png` exists and contains the required evidence for Task 12.
-- [ ] `screenshots/task13.png` exists and contains the required evidence for Task 13.
-- [ ] `screenshots/task14.png` exists and contains the required evidence for Task 14.
-- [ ] Every `PASTE YOUR ACTUAL TERMINAL OUTPUT` placeholder has been replaced.
-- [ ] The README and referenced manifests are committed to GitHub.
