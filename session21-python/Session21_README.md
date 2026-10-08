@@ -21,7 +21,3 @@ During verification, the backend attempted its Alembic migration before PostgreS
 The deliberately broken image and Service manifests, plus the TaskBoard namespace manifest, were validated with client-side Kubernetes dry runs. They are ready for the investigation steps documented in `README.md` when a suitable cluster/image registry target is configured.
 
 ![Troubleshooting manifest validation](screenshots/task-3-troubleshooting/manifest-validation.png)
-
-## Notes
-
-The local application and validation steps were executed without provisioning AWS infrastructure, pushing container images, or running a GitHub-hosted workflow. Those stages require the repository, cloud account, registry, and GitHub secrets described in the main README.
