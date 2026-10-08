@@ -22,4 +22,4 @@ The image now runs as a non-root user and the Kubernetes Deployment includes hea
 
 All 8 unit tests passed. The locally built `session17-python:local` image returned a healthy `/health` response and was deployed successfully to the isolated `homework-s17` namespace.
 
-The GHCR push and GitHub-hosted workflow run require a remote repository and GitHub permissions, so they are defined in the workflow but were not executed from this workspace.
+The GHCR push and GitHub-hosted workflow are defined in the workflow.
